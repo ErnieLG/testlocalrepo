@@ -1,0 +1,325 @@
+https://conda.io/en/latest/
+https://www.kaggle.com/
+https://docs.anaconda.com/
+https://jupyter.org/install.html
+github.com/rfordatascience/tidytuesday
+data is plural https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0
+https://www.kaggle.com/
+https://stackoverflow.com/users/13028182/ernielg
+
+DSC Prep 2.3 Project. A little Theory
+
+v = input('Enter message: ')
+shift = input('Enter shift amount: ')
+
+def cCipher(v,shift):   
+    if type(v) != str:
+        print('You must use a string message.')
+        return
+    if shift.isdigit() == False:
+        print('You must use an int shift amount.')
+        return
+    shift = int(shift)
+    print('Your message cipher is:')
+    for i in range(len(v)): 
+            print(chr(ord(v[i])+shift),end='')
+    print()
+
+cCipher(v,shift)
+
+
+
+DSC Prep 3. Intermediate Python Project. 8. The Aftermath
+
+rarebirds = {
+    'Gold-crested Toucan': {
+        'Height (m)': 1.1,
+        'Weight (kg)': 35,
+        'Color': 'Gold',
+        'Endangered': True,
+        'Aggressive': True},
+    'Pearlescent Kingfisher': {
+        'Height (m)': 0.25,
+        'Weight (kg)': 0.5,
+        'Color': 'White',
+        'Endangered': False,
+        'Aggressive': False},
+    'Four-metre Hummingbird': {
+        'Height (m)': 0.6,
+        'Weight (kg)': 0.5,
+        'Color': 'Blue',
+        'Endangered': True,
+        'Aggressive': False},
+    'Giant Eagle': {
+        'Height (m)': 1.5,
+        'Weight (kg)': 52,
+        'Color': 'Black and White',
+        'Endangered': True,
+        'Aggressive': True},
+    'Ancient Vulture': {
+        'Height (m)': 2.1,
+        'Weight (kg)': 70,
+        'Color': 'Brown',
+        'Endangered': False,
+        'Aggressive': False}
+}
+
+birdlocation = [
+    'In the canopy directly above our heads.',
+    'Between my 6 and 9 o’clock above.',
+    'Between my 9 and 12 o’clock above.',
+    'Between my 12 and 3 o’clock above.',
+    'Between my 3 and 6 o’clock above.',
+    'In a nest on the ground.',
+    'Right behind you.'
+]
+
+
+codes = {
+    111 : birdlocation[0],
+    110 : birdlocation[1],
+    101 : birdlocation[2],
+    100 : birdlocation[3],
+    11 : birdlocation[4],
+    10 : birdlocation[5],
+    1 : birdlocation[6]
+}
+
+actions = [
+    'Back Away',
+    'Cover our Heads',
+    'Take a Photograph'
+]
+print()
+print(rarebirds['Giant Eagle']['Aggressive'])
+print()
+for x in rarebirds:
+    print('\n',x, end=': ')
+    if rarebirds[x]['Aggressive'] == True:
+        print(actions[1], end='')
+        if rarebirds[x]['Endangered'] == True:
+            print(' and', actions[0], end='')
+    elif rarebirds[x]['Endangered'] == True:
+        print(actions[0], end='')
+
+
+print()
+print()
+for x,y in codes.items():
+    print(x,y)
+
+for x in rarebirds:
+    rarebirds[x]['seen'] = False
+print()
+print()
+for x in rarebirds:
+    print(x,': ',rarebirds[x])
+
+encounter = True
+while encounter == True:
+    sighting = input('What do you see?')
+    print()
+
+    rarebirdsList = rarebirds.keys()
+
+    if sighting in rarebirdsList:
+        print("this is one of the birds we're looking for!")
+    else:
+        print("that's not one of the birds we're looking for")
+        continue
+
+    code = 'None'
+    while code.isdigit() == False:
+        code = input('Where do you see it? Input the correct code.')
+
+    location = codes[int(code)]
+    print(location)
+    print()
+
+    print("So you've seen a",sighting, location,'My goodness.')
+
+    if rarebirds[sighting]['Aggressive'] == True:
+        print("This fool's aggro. ",actions[0],' and ',actions[1],'. Photograph it ',location)
+    elif rarebirds[sighting]['Endangered'] == True:
+        print("This fool's rare. ",actions[0],'. Photograph it ',location)
+    else: 
+        print('Photograph it ',location)
+
+
+
+
+
+DSC Prep 5: Advanced Python, Project. 9
+
+import datetime
+account = [
+    ['Date','Credit','Debit','Balance'],
+    ['21/3/2000', 450.0, 0, 450.0],
+    ['21/3/2000', 0, 30.0, 420.0],
+    ['21/3/2000', 1000.0, 0, 1420.0],
+    ['21/3/2000', 4400.0, 0, 5820.0],
+    ['21/3/2000', 0, 776.0, 5044.0],
+    ['21/3/2000', 2333.33, 0, 7377.33],
+    ['21/3/2000', 2000.0, 0, 9377.33],
+    ['21/3/2000', 0, 1444.33, 7933.0]
+]
+
+def transaction():
+    now = datetime.datetime.now()
+    dayMonthYear = str(now.day)+'/'+str(now.month)+'/'+str(now.year)
+    validInput = False
+    while validInput == False:
+        creditQ = input('Do you want to credit your account in this transaction? Y/N').lower()
+        if creditQ == 'y':
+            validInput = True
+            credit = float(input('How much do you want to credit your account? '))
+            if len(account) > 1:
+                lastRow = account[len(account) - 1]
+                newRow = [dayMonthYear, credit, 0, credit + lastRow[3]]
+                account.append(newRow)
+                print('Added ', credit, 'to your account.')
+                print('Your new balance is: ', account[len(account)-1][3])
+            else:
+                newRow = [dayMonthYear, credit, 0, credit]
+                account.append(newRow)
+                print('Added ', credit, 'to your account.')
+                print('Your new balance is: ', account[len(account)-1][3])
+        elif creditQ == 'n':
+            validInput = True
+        else:
+            print('Please enter a valid input.')
+
+    validInput = False
+    while validInput == False:
+        debitQ = input('Do you want to debit your account in this transaction? Y/N').lower()
+        if debitQ == 'y':
+            validInput = True
+            debit = float(input('How much do you want to debit your account? '))
+            if len(account) > 1:
+                lastRow = account[len(account) - 1]
+                newRow = [dayMonthYear, 0, debit, lastRow[3]-debit]
+                account.append(newRow)
+                print('Subtracted ', debit, 'from your account.')
+                print('Your new balance is: ', account[len(account)-1][3])
+            else:
+                newRow = [dayMonthYear, 0, debit, lastRow[3]-debit]
+                account.append(newRow)
+                print('Subtracted ', debit, 'from your account.')
+                print('Your new balance is: ', account[len(account)-1][3])
+        elif debitQ == 'n':
+            validInput = True
+        else:
+            print('Please enter a valid input.')
+    print('Thank you for your transaction. Have a nice day.')
+
+userQuestion = input('Do you still want to run the program? Y/N').lower()
+while (userQuestion == 'y'):
+    transaction()
+    print('Your new account looks like this: ')
+    for i in account: 
+        print (i)
+    userQuestion = input('Do you still want to run the program? Y/N').lower()
+
+
+
+test0 = [3, 22, 14, 434, 501, 11, 9, 1230, 304, 123, 5412, 381923, 302, -3, 1]
+test1 = [43, 12, 7, 9, 22, 1, 104]
+test2 = [100, 0, 0, -20, 30, -5]
+test3  = [28, 4, 17, 666, 1001, 52, 61, 30]
+
+def insert_sort(list_of_numbers):
+    print(list_of_numbers)
+    for index in range(len(list_of_numbers)):
+        current_element = list_of_numbers[index] #Access the current element
+        position = index
+        #Check if a position is greater than zero AND the previous item is greater than the current element
+        while position > 0 and list_of_numbers[position-1] > current_element:
+            list_of_numbers[position] = list_of_numbers[position-1] #Set the value of the positioned element to the value of the previous element. We are doing this to make space for the new (inserted item)
+            position = position-1 #Move position to one back
+
+        #Set the value of the final positioned item to be the value of the current_element
+        list_of_numbers[position] = current_element
+    print(list_of_numbers)
+    print()
+
+#Do not change code below this line
+insert_sort(test0)
+insert_sort(test1)
+insert_sort(test2)
+insert_sort(test3)
+
+
+
+
+
+
+
+test0 = [-3, 1, 3, 9, 11, 14, 22, 123, 302, 304, 434, 501, 1230, 5412, 381923]
+searchItem0 = 13
+test1 = [1, 7, 9, 12, 22, 43, 104]
+searchItem1 = 9
+test2 = [-20, -5, 0, 0, 30, 100]
+searchItem2 = 31 
+test3 = [4, 17, 28, 30, 52, 61, 666, 1001]
+searchItem3 = 666
+
+def binary_search(list_of_numbers, query_item):
+    #Set index of the first item in the list and an index of the last item in the list
+    index_first = 0
+    index_last = len(list_of_numbers)-1
+    #Set the found variable to False
+    found = False
+    while index_first<=index_last and not found: #Check if the index_first is less than or equal to the index_last
+        middle_index = (index_first+index_last)//2 #using index_first and index_last find the middle index
+        if list_of_numbers[middle_index] == query_item: #Check if the middle element is equal to the query_item     
+            found = True
+            break
+        else:
+            if query_item < list_of_numbers[middle_index]:
+	            index_last = middle_index-1 #If the query_item is less than the middle item, use the index_last to eliminate the upper part of the list
+            else:
+                index_first = middle_index + 1    
+    #Return the found boolean variable
+    print(found)
+
+#Do not change code below this line
+binary_search(test0, searchItem0)
+binary_search(test1, searchItem1)
+binary_search(test2, searchItem2)
+binary_search(test3, searchItem3)
+
+
+
+
+
+
+def avgWaitTime(input):
+    totalWaitTime = 0
+    for i in range(0,len(input)-1):
+        totalWaitTime += input[i+1]-input[i]
+        print(totalWaitTime)
+    print(totalWaitTime)
+    print(int(totalWaitTime/(len(input)-1)))
+
+list = [10, 15, 30,234,3,52,5]
+avgWaitTime(list)
+
+print()
+print()
+
+
+
+12. ordered max difference
+
+def greatestDif(testList):
+    greatestDif = 0
+    for i in range(1,len(testList)):
+        for j in range(1,len(testList)):
+            if testList[i-1] < testList[j] and testList[j]-testList[i-1] > greatestDif:
+                greatestDif = testList[j]-testList[i-1]
+    print(greatestDif)
+
+x = [int(i) for i in input().split()]
+greatestDif(x)
+
+
