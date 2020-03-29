@@ -1,3 +1,5 @@
+just an edit to make this branch dif
+
 https://conda.io/en/latest/
 https://www.kaggle.com/
 https://docs.anaconda.com/
@@ -6,6 +8,8 @@ github.com/rfordatascience/tidytuesday
 data is plural https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0
 https://www.kaggle.com/
 https://stackoverflow.com/users/13028182/ernielg
+
+
 
 DSC Prep 2.3 Project. A little Theory
 
